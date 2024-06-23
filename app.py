@@ -107,23 +107,31 @@ organization_responses = [
 def index():
     return send_from_directory('.','index.html')
  
-@app.errorhandler(500)
-def internal_server_error(e):
-    return jsonify(error=str(e)), 500
+
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_input = request.json['message']
-    category = request.json['category']
-    if category.lower() == 'general':
-        response = generate_response(user_input, category, corpus, responses)
-    elif category.lower() == 'career':
-        response = generate_response(user_input, category, career_corpus, career_responses)
-    elif category.lower() == 'organization':
-        response = generate_response(user_input, category, organization_corpus, organization_responses)
-    else:
-        response = "I'm sorry, I don't understand that category."
-    return jsonify({'message': response})
+    try:
+        user_input = request.json['message']
+        category = request.json['category']
+
+        if category.lower() == 'general':
+            response = generate_response(user_input, category, corpus, responses)
+        elif category.lower() == 'career':
+            response = generate_response(user_input, category, career_corpus, career_responses)
+        elif category.lower() == 'organization':
+            response = generate_response(user_input, category, organization_corpus, organization_responses)
+        else:
+            response = "I'm sorry, I don't understand that category."
+
+        return jsonify({'message': response})
+
+    except Exception as e:
+        # Log the exception for debugging purposes
+        app.logger.error(f"An error occurred: {str(e)}")
+        # Return an error response to the client
+        return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
+
  
 
 # Function to process user input and generate response
