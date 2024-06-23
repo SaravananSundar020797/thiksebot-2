@@ -2,9 +2,3 @@ Flask
 tensorflow
 nltk
 numpy
-PorterStemmer
-load_model
-TfidfVectorizer
-LabelEncoder
-time
-cosine_similarity
