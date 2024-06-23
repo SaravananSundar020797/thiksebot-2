@@ -107,6 +107,10 @@ organization_responses = [
 def index():
     return send_from_directory('.','index.html')
  
+@app.errorhandler(500)
+def internal_server_error(e):
+    return jsonify(error=str(e)), 500
+
 @app.route('/chat', methods=['POST'])
 def chat():
     user_input = request.json['message']
@@ -121,6 +125,7 @@ def chat():
         response = "I'm sorry, I don't understand that category."
     return jsonify({'message': response})
  
+
 # Function to process user input and generate response
 def generate_response(user_input, category, corpus, responses):
     # Define a similarity threshold
