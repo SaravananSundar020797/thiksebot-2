@@ -1,4 +1,8 @@
 # Importing necessary libraries
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppresses TensorFlow info, warning, and error messages
+
 from flask import Flask, render_template, request, jsonify,send_from_directory
 import tensorflow as tf
 import nltk
