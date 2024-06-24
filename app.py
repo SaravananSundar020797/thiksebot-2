@@ -16,8 +16,7 @@ from sklearn.preprocessing import LabelEncoder
 import time
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Download NLTK resources
-nltk.download('punkt')
+
 
 # Create Flask app
 app = Flask(__name__)
