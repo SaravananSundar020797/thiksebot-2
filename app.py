@@ -15,8 +15,14 @@ from sklearn.preprocessing import LabelEncoder
 #from flask_cors import CORS
 import time
 from sklearn.metrics.pairwise import cosine_similarity
+
+# Download NLTK resources
+nltk.download('punkt')
+
 # Create Flask app
 app = Flask(__name__)
+
+
 
 # Load the saved model and vectorizer
 model = load_model('chatbot_model.h5')
